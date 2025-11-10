@@ -1,0 +1,35 @@
+
+services:
+  smart-brain-api:
+    container_name: backend
+    build: .
+    command: npm start
+    working_dir: /user/src/smart-brain-api
+    environment:
+      POSTGRES_USER: sally
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: smart-brain-docker
+      POSTGRES_HOST: postgres
+    links:
+      - postgres
+    ports:
+      - "3000:3000"
+    volumes:
+      - "${PWD}:/user/src/smart-brain-api"
+
+  postgres:
+    image: postgres:18
+    container_name: postgres
+    environment:
+      POSTGRES_USER: sally
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: smart-brain-docker
+    ports:
+      - "5432:5432"  # host:container //make sure the host psql by port isnt running if it is netstat -ano | findstr :5432 & taskkill /PID pid /F then only this login will be successful in the CLI else should forward 5432 to a different port. for example 5433
+
+    volumes:
+      - postgres_data:/var/lib/postgresql  # Postgres 18+ recommended mount
+    command: postgres -c listen_addresses='*'
+
+volumes:
+  postgres_data:
