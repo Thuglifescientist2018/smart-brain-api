@@ -7,7 +7,7 @@ const Clarifai = require('clarifai');
 
 const returnClarifaiRequestOptions = (imageUrl) => {
   // Your PAT (Personal Access Token) can be found in Clarifai's Account Security section
-  const PAT = 'YOUR_PAT_HERE';
+  const PAT = process.env.PERSONAL_ACCESS_TOKEN;
   // You can keep the 'clarifai'/'main' without changing it to your own unless you want to. 
   // This will use the public Clarifai model so you dont need to create an app:
   const USER_ID = 'clarifai';       
@@ -48,6 +48,7 @@ const handleApiCall = (req, res) => {
   fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs", returnClarifaiRequestOptions(req.body.input))
     .then(response => response.json())
     .then(data => {
+      console.log({data: data.outputs})
       res.json(data);
     })
     .catch(err => res.status(400).json('unable to work with API'))
