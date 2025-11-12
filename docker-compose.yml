@@ -1,6 +1,8 @@
 
 services:
   smart-brain-api:
+    env_file:
+      - .env
     container_name: backend
     build: .
     command: npm start
