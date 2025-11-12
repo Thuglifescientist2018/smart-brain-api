@@ -15,7 +15,7 @@ services:
       - .:/user/src/smart-brain-api
 
   postgres:
-    image: postgres:18
+    build: ./postgres
     container_name: postgres
     environment:
       POSTGRES_USER: sally
