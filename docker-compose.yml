@@ -13,6 +13,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/user/src/smart-brain-api
+      - /user/src/smart-brain-api/node_modules
 
   postgres:
     build: ./postgres
