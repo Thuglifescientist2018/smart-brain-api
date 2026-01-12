@@ -9,6 +9,7 @@ services:
     working_dir: /user/src/smart-brain-api
     environment:
       POSTGRES_URI: postgres://sally:secret@postgres:5432/smart-brain-docker
+      REDIS_URI: redis://redis:6379
     ports:
       - "3000:3000"
     volumes:
@@ -28,6 +29,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql  # Postgres 18+ recommended mount
     command: postgres -c listen_addresses='*'
+  # Redis
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
 
 volumes:
   postgres_data:
